@@ -1,0 +1,154 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://src/Paddle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Background.gd" type="Script" id=2]
+[ext_resource path="res://src/Brick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/hammering.wav" type="AudioStream" id=4]
+[ext_resource path="res://src/Bottom.gd" type="Script" id=5]
+[ext_resource path="res://src/GameUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/snow.png" type="Texture" id=7]
+[ext_resource path="res://src/ParallaxLayer.gd" type="Script" id=8]
+[ext_resource path="res://src/ParallaxLayer2.gd" type="Script" id=9]
+[ext_resource path="res://assets/heart.png" type="Texture" id=10]
+[ext_resource path="res://src/LivesLabel.gd" type="Script" id=11]
+[ext_resource path="res://assets/christmas_eve.ogg" type="AudioStream" id=12]
+
+[sub_resource type="SegmentShape2D" id=1]
+b = Vector2( 0, 500 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 405, 0 )
+b = Vector2( 405, 500 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 213.55, 10 )
+
+[sub_resource type="SegmentShape2D" id=4]
+b = Vector2( 405, 0 )
+
+[node name="Background" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="OriginalBrick" parent="." instance=ExtResource( 3 )]
+pause_mode = 1
+position = Vector2( -80.0689, -41.4643 )
+
+[node name="Paddle" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
+position = Vector2( 200, 470 )
+
+[node name="Border" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Border"]
+shape = SubResource( 1 )
+
+[node name="Right" type="CollisionShape2D" parent="Border"]
+shape = SubResource( 2 )
+
+[node name="Bottom" type="StaticBody2D" parent="Border"]
+position = Vector2( 198.395, 499.483 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/Bottom"]
+position = Vector2( -0.351242, 0 )
+shape = SubResource( 3 )
+
+[node name="Top" type="CollisionShape2D" parent="Border"]
+shape = SubResource( 4 )
+
+[node name="BrickContainer" type="Node" parent="."]
+pause_mode = 1
+
+[node name="PowerUps" type="Node2D" parent="."]
+
+[node name="Popup" type="Popup" parent="."]
+pause_mode = 2
+anchor_left = -0.000768591
+anchor_top = 0.000622681
+anchor_right = 0.999231
+anchor_bottom = 1.002
+margin_right = 80.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 80, 60 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup"]
+margin_left = 164.0
+margin_top = 220.0
+margin_right = 244.0
+margin_bottom = 280.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_continue" type="Button" parent="Popup/VBoxContainer"]
+margin_right = 80.0
+margin_bottom = 20.0
+text = "CONTINUE"
+
+[node name="btn_quit" type="Button" parent="Popup/VBoxContainer"]
+margin_top = 40.0
+margin_right = 80.0
+margin_bottom = 60.0
+text = "TITLE"
+
+[node name="ScoreLabel" parent="." instance=ExtResource( 6 )]
+margin_left = 11.8371
+margin_top = 462.535
+margin_right = 332.837
+margin_bottom = 476.535
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="Hammering" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="LivesLabel" type="Label" parent="."]
+margin_left = 350.279
+margin_top = 467.054
+margin_right = 397.279
+margin_bottom = 481.054
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "3"
+align = 1
+valign = 1
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="LivesLabel"]
+position = Vector2( 22.7542, 6.28039 )
+z_index = -1
+texture = ExtResource( 10 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 810, 1000 )
+script = ExtResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1215, 1500 )
+script = ExtResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="SoundTrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -10.0
+[connection signal="pressed" from="Popup/VBoxContainer/btn_continue" to="." method="_on_btn_continue_pressed"]
+[connection signal="pressed" from="Popup/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]

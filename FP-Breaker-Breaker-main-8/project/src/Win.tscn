@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/EndScreen.gd" type="Script" id=1]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 0.625763
+margin_right = 323.626
+margin_bottom = 181.0
+color = Color( 0.0156863, 0.0156863, 0.0156863, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="RichTextLabel" parent="."]
+margin_top = 80.0
+margin_right = 322.0
+margin_bottom = 105.0
+custom_colors/selection_color = Color( 0, 0, 0, 1 )
+text = "						     	YOU WON!!!"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 55.0365
+margin_top = 109.748
+margin_right = 311.036
+margin_bottom = 149.748
+text = "press enter to go to title screen"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/christmas_eve.ogg-ec8c25f152e995756a80b3e630605dc9.oggstr"
+
+[deps]
+
+source_file="res://assets/christmas_eve.ogg"
+dest_files=[ "res://.import/christmas_eve.ogg-ec8c25f152e995756a80b3e630605dc9.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
